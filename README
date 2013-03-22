@@ -1,0 +1,64 @@
+pacCacher
+
+What is it?
+pacCacher is basically package caching proxy. Originally it was designed for
+Archlinux (archlinux.org) but other distributions like Debian will be supported, too.
+
+What exactly does pacCacher do?
+pacCacher acts as a HTTP server. It receives requests from package managers like
+pacman on Archlinux (that's where the name is derived from ;)) or apt-get on Debian.
+If pacCacher has stored the requested packages locally, it will deliver them directly
+to the clients from the host it's running on. (Usually in your private network)
+If the requested packages are not available locally, pacCacher will download them
+from a specified mirror, cache them locally and deliver them to your clients.
+This way you save lots of bandwith (and time) when installing or upgrading multiple 
+systems, because most packages are served locally. Another advantage is that you
+don't have to clone the whole remote repository, just packages that are actually used
+are downloaded.
+
+How to use it?
+
+- Server:
+
+To run pacCacher you need Python 3.
+First edit the .conf files in pacCacher's root directory (pacCacher.conf and repos.conf).
+pacCacher.conf should be pretty self-explaining.
+repos.conf contains the configuration for the actual repositories.
+Each category describes a repository, which is later used in the mirrorlists on your
+client machines. For example:
+
+[archlinux]
+...
+...
+
+'archlinux' is the name of the repository. You can specify the local directory where it
+stores files, the remote directory where it fetches files from and several other options.
+Okay, if you've done that it's time to start the daemon.
+
+Just run the following in pacCacher's root directory:
+# python main.py &
+
+This will start pacCacher in the background. If you leave out the '&' you can see the
+output it produces on the console.
+That's it for the server side.
+
+- Client:
+Basically you just have to change the mirror for your package manager.
+I'll give you an example for Archlinux.
+If your pacCache host owns the IP address 192.168.0.4, pacCache listens on port 9001
+and the repository in your repos.conf is called 'archlinux', 
+you'll put this line in your /etc/pacman.d/mirrorlist:
+
+Server = http://192.168.0.4:9001/archlinux/$repo/os/$arch
+
+That's it, save your mirrorlist and sync package databases with:
+# sudo pacman -Syu
+
+Repeat this step on every client and you're done.
+Have fun!
+
+
+
+
+
+
