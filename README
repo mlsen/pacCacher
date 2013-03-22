@@ -1,7 +1,7 @@
 pacCacher
 
 What is it?
-pacCacher is basically package caching proxy. Originally it was designed for
+pacCacher is basically a package caching proxy. Originally it was designed for
 Archlinux (archlinux.org) but other distributions like Debian will be supported, too.
 
 What exactly does pacCacher do?
@@ -38,7 +38,7 @@ Okay, if you've done that it's time to start the daemon.
 Just run the following in pacCacher's root directory:
 # python main.py &
 
-This will start pacCacher in the background. If you leave out the '&' you can see the
+This will start pacCacher in the background. If you remove the '&' you can see the
 output it produces on the console.
 That's it for the server side.
 
@@ -52,7 +52,7 @@ you'll put this line in your /etc/pacman.d/mirrorlist:
 Server = http://192.168.0.4:9001/archlinux/$repo/os/$arch
 
 That's it, save your mirrorlist and sync package databases with:
-# sudo pacman -Syu
+# sudo pacman -Syy
 
 Repeat this step on every client and you're done.
 Have fun!
