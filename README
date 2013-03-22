@@ -1,5 +1,8 @@
 pacCacher
 
+WARNING: This is still pretty experimental and a lot of features are not yet
+implemented. Use at your own risk. ;)
+
 What is it?
 pacCacher is basically a package caching proxy. Originally it was designed for
 Archlinux (archlinux.org) but other distributions like Debian will be supported, too.
